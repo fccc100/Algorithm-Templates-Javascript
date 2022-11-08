@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./PriorityQueue.js"></script>
+</head>
+<body>
+  <script>
+    let pq = new PriorityQueue((a, b) => b - a)
+    pq.offer(1)
+    pq.offer(2)
+    pq.offer(3)
+    pq.offer(5)
+    pq.offer(4)
+    pq.offer(8)
+    pq.offer(7)
+    pq.offer(6)
+    while (!pq.isEmpty()) {
+      console.log(pq.poll())
+    }
+  </script>
+</body>
+</html>
