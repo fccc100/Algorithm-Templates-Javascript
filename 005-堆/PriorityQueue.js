@@ -1,5 +1,5 @@
 class PriorityQueue {
-  constructor(comparator) {
+  constructor(comparator = this.__defaultComparator) {
     this.comparator = comparator
     this.data = []
   }
@@ -27,6 +27,10 @@ class PriorityQueue {
     this.data.pop()
     this.__siftDown(0)
     return res
+  }
+
+  __defaultComparator(a, b) {
+    return a - b;
   }
 
   __leftChild(index) {
