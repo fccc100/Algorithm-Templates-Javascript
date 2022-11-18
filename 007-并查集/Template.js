@@ -8,6 +8,7 @@ class UnionFind {
     }
   }
 
+  // 查询p的根节点
   find(p) {
     while (p != this.parent[p]) {
       p = this.parent[p];
@@ -15,10 +16,12 @@ class UnionFind {
     return p;
   }
 
+  // 判断p q是否联通
   isConnected(p, q) {
     return this.find(p) == this.find(q);
   }
 
+  // 合并
   union(p, q) {
     let pRoot = this.find(p);
     let qRoot = this.find(q);
@@ -35,6 +38,7 @@ class UnionFind {
     }
   }
 
+  // 获取联通分量个数
   getConnectedComponent() {
     let res = 0;
     for (let i = 0; i < this.parent.length; i++) {
