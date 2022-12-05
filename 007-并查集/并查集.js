@@ -1,16 +1,19 @@
 class UnionFind {
-  constructor(size) {
-    this.parent = Array(size);
-    this.rank = Array(size);
-    for (let i = 0; i < size; i++) {
+  constructor(n) {
+    this.parent = Array(n);
+    this.rank = Array(n);
+    this.size = Array(n);
+    for (let i = 0; i < n; i++) {
       this.parent[i] = i;
       this.rank[i] = 1;
+      this.size[i] = 1;
     }
   }
 
   // 查询p的根节点
   find(p) {
     while (p != this.parent[p]) {
+      this.parent[p] = this.parent[this.parent[p]];
       p = this.parent[p];
     }
     return p;
@@ -30,11 +33,14 @@ class UnionFind {
     }
     if (this.rank[pRoot] < this.rank[qRoot]) {
       this.parent[pRoot] = qRoot;
+      this.size[qRoot] += this.size[pRoot];
     } else if (this.rank[qRoot] < this.rank[pRoot]) {
       this.parent[qRoot] = pRoot;
+      this.size[pRoot] += this.size[qRoot];
     } else {
       this.parent[pRoot] = qRoot;
       this.rank[qRoot] += 1;
+      this.size[qRoot] += this.size[pRoot];
     }
   }
 
@@ -47,5 +53,10 @@ class UnionFind {
       }
     }
     return res;
+  }
+
+  // 获取某个元素p所属联通分量内的元素个数
+  getComponentSize(p) {
+    return this.size[this.find(p)];
   }
 }
