@@ -4,7 +4,6 @@ function upper_floor(nums, target) {
   let r = nums.length - 1;
   while (l < r) {
     let mid = l + (r - l + 1 >> 1);
-
     if (nums[mid] <= target) {
       l = mid;
     } else {
