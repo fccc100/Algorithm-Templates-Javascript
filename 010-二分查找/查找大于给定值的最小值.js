@@ -1,5 +1,5 @@
 // 返回大于target的最小值的索引，没有大于target的值返回n
-function lower_ceil(nums, target) {
+function lower_floor(nums, target) {
   let l = 0;
   let r = nums.length;
   while (l < r) {
