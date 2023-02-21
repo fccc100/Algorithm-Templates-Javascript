@@ -1,13 +1,25 @@
-// 问题，给定一组区间intervals, 从中选择最少的区间可以完全覆盖[0, n], 无法覆盖返回-1
-// 如：给定intervals = [[0,2],[4,6],[8,10],[1,9],[1,5],[5,9]], n = 10
-// 可以选择[0,2], [8,10], [1,9] 这三个区间完全覆盖[0, 10]
+/**
+ * @param {number} n
+ * @param {number[]} ranges
+ * @return {number}
+ */
+// 1.动态规划
+var minTaps = function (n, ranges) {
+  let m = ranges.length
+  let intervals = Array(m)
+  for (let i = 0; i < m; i++) {
+    let k = ranges[i]
+    let l = Math.max(0, i - k)
+    let r = Math.min(i + k, m - 1)
+    intervals[i] = [l, r]
+  }
+  return solve(intervals, n)
+};
 
-// 1. 动态规划
 function solve(intervals, n) {
   let m = intervals.length
   intervals.sort((a, b) => a[0] - b[0])
 
-  // dp[i] 表示覆盖位置i需要的最少区间数
   let dp = Array(n + 1).fill(Infinity)
   dp[0] = 0
   for (let i = 0; i < m; i++) {
@@ -23,5 +35,3 @@ function solve(intervals, n) {
 
   return dp[n] == Infinity ? -1 : dp[n]
 }
-
-// 2.贪心
