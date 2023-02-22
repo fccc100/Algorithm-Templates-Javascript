@@ -25,3 +25,34 @@ function solve(intervals, n) {
 }
 
 // 2.贪心
+function solve(intervals, n) {
+  let maxRight = Array(n)
+  for (let i = 0; i < n; i++) {
+    maxRight[i] = i
+  }
+
+  // 先处理出以i为起点能到达的最远距离
+  for (let i = 0; i < intervals.length; i++) {
+    let start = intervals[i][0]
+    let end = intervals[i][1]
+    maxRight[start] = Math.max(maxRight[start], end)
+  }
+
+  // last记录当前能到达的最远距离
+  // pre记录上一次能到达的最远距离
+  // 如果遍历位置到达当前能到达的最远距离了，说明无解
+  // 如果遍历位置到达上一次能到达的最远距离了，说明找到一个区间并开启新区间
+  let last = 0
+  let pre = 0
+  let res = 0
+  for (let i = 0; i < n; i++) {
+    last = Math.max(last, maxRight[i])
+    if (i == last) return -1
+
+    if (i == pre) {
+      res++
+      pre = last
+    }
+  }
+  return res
+}
