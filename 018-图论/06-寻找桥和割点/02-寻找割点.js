@@ -14,6 +14,7 @@ function findCutPoints(edges, n) {
   let ord = Array(n + 1).fill(0)
   let low = Array(n + 1).fill(0)
   let cnt = 0
+  let res = new Set()
 
   function dfs(v, parent) {
     visited[v] = true
@@ -29,11 +30,13 @@ function findCutPoints(edges, n) {
         low[v] = Math.min(low[v], low[w])
         if (v != parent && low[w] >= ord[v]) {
           console.log(v + '是割点')
+          res.add(v)
         }
 
         childCnt++
         if (v == parent && childCnt > 1) {
           console.log(v + '是割点')
+          res.add(v)
         }
       } else if (w != parent) {
         low[v] = Math.min(low[v], low[w])
@@ -46,4 +49,5 @@ function findCutPoints(edges, n) {
       dfs(i, i)
     }
   }
+  return res
 }
