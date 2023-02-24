@@ -13,13 +13,13 @@ function findBridges(edges, n) {
 
   let visited = Array(n + 1).fill(false)
 
-  // ord[i]表示遍历的i的序号
+  // ord[i]表示遍历到i的序号
   let ord = Array(n + 1).fill(0)
 
-  // low[i]表示从i能到达的ord值最小的点
+  // low[i]表示从i能到达的最小的ord值
   let low = Array(n + 1).fill(0)
   let cnt = 0
-
+  let res = []
   function dfs(v, parent) {
     visited[v] = true
     console.log('节点:' + v + ', parent:' + parent)
@@ -32,9 +32,10 @@ function findBridges(edges, n) {
         dfs(w, v)
         low[v] = Math.min(low[v], low[w])
 
-        // w是v的相邻点，通过相邻点w能到达的最小ord值的点比v的ord值还大
+        // w是v的相邻点，通过相邻点w能到达的最小ord值比v的ord值还大
         // 说明通过相邻点w无法到达v之前的点，所以边 v - w 是桥
         if (low[w] > ord[v]) {
+          res.push([v, w])
           console.log(v + '-' + w + '是桥')
         }
       } else if (w != parent) {
@@ -48,4 +49,5 @@ function findBridges(edges, n) {
       dfs(i, i)
     }
   }
+  return res
 }
