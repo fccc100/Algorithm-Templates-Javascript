@@ -1,7 +1,7 @@
 // 求解欧拉回路
 function findEulerLoop(edges, n) {
   let res = []
-  
+
   let graph = Array(n)
   for (let i = 0; i < n; i++) {
     graph[i] = new Set()
@@ -19,19 +19,18 @@ function findEulerLoop(edges, n) {
   }
 
   let stack = []
-  let curV = 0
-  stack.push(curV)
+  stack.push(0)
   while (stack.length) {
+    let curV = stack[stack.length - 1]
     if (graph[curV].size != 0) {
-      stack.push(curV)
       let w = graph[curV].keys().next().value
       graph[curV].delete(w)
       graph[w].delete(curV)
-      curV = w
+      stack.push(w)
     } else {
-      res.push(curV)
-      curV = stack.pop()
+      res.push(stack.pop())
     }
   }
   return res
 }
+
