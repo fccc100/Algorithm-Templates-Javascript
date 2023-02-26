@@ -25,7 +25,11 @@ function dfs(edges, n) {
       }
     }
   }
-  __dfs(0)
+  for (let i = 0; i < n; i++) {
+    if (!visited[i]) {
+      __dfs(i)
+    }
+  }
 
   return res
 }
