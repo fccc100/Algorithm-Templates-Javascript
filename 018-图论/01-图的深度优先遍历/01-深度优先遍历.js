@@ -13,7 +13,7 @@ function dfs(edges, n) {
 
   let visited = Array(n).fill(false)
   let res = []
-  
+
   function __dfs(v) {
     visited[v] = true
 
@@ -25,6 +25,7 @@ function dfs(edges, n) {
       }
     }
   }
+  __dfs(0)
 
   return res
 }
