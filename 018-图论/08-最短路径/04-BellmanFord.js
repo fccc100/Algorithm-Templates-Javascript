@@ -26,5 +26,19 @@ function bellmanFord(edges, n, src) {
     }
   }
 
-  return dis
+  let hasNegativeCycle = false
+  for (let v = 0; v < n; v++) {
+    for (let w of graph[v].keys()) {
+      if (dis[v] != Infinity && dis[v] + graph[v].get(w) < dis[w]) {
+        // 存在负权环
+        hasNegativeCycle = true
+      }
+    }
+  }
+
+  if (hasNegativeCycle) {
+    console.log('存在负权环')
+  } else {
+    return dis
+  }
 }
