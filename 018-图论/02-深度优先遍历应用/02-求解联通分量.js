@@ -1,4 +1,5 @@
-// 求联通分量个数
+// 求联通分量
+// visited数组用整数表示，不同的值表示不同的联通分量
 function cccount(edges, n) {
   let graph = Array(n)
   for (let i = 0; i < n; i++) {
@@ -12,21 +13,21 @@ function cccount(edges, n) {
     graph[v2].add(v1)
   }
 
-  let visited = Array(n).fill(false)
+  let visited = Array(n).fill(-1)
   let cnt = 0
 
-  function dfs(v) {
-    visited[v] = true
+  function dfs(v, ccid) {
+    visited[v] = ccid
     for (let w of graph[v]) {
-      if (!visited[w]) {
-        dfs(w)
+      if (visited[w] == -1) {
+        dfs(w, ccid)
       }
     }
   }
 
   for (let i = 0; i < n; i++) {
-    if (!visited[i]) {
-      dfs(i)
+    if (visited[i] == -1) {
+      dfs(i, cnt)
       cnt++
     }
   }
