@@ -18,16 +18,18 @@ function singleSourcePath(edges, n, s, t) {
   function dfs(v, parent) {
     visited[v] = true
     pre[v] = parent
+    if (v == t) return true
     for (let w of graph[v]) {
       if (!visited[w]) {
-        dfs(w, v)
+        if (dfs(w, v)) return true
       }
     }
+    return false
   }
 
   dfs(s, s)
   let res = []
-
+  
   if (!visited[t]) {
     return res
   }

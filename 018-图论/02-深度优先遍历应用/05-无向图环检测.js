@@ -1,5 +1,5 @@
-// 求单源路径
-function singleSourcePath(edges, n, s, t) {
+// 无向图的环检测
+function cycleDetection(edges, n) {
   let graph = Array(n)
   for (let i = 0; i < n; i++) {
     graph[i] = new Set()
@@ -13,30 +13,24 @@ function singleSourcePath(edges, n, s, t) {
   }
 
   let visited = Array(n).fill(false)
-  let pre = Array(n).fill(-1)
 
   function dfs(v, parent) {
     visited[v] = true
-    pre[v] = parent
+
     for (let w of graph[v]) {
       if (!visited[w]) {
-        dfs(w, v)
+        if (dfs(w, v)) return true
+      } else if (w != parent) {
+        return true
       }
     }
+    return false
   }
 
-  dfs(s, s)
-  let res = []
-
-  if (!visited[t]) {
-    return res
+  for (let i = 0; i < n; i++) {
+    if (!visited[i]) {
+      if (dfs(i)) return true
+    }
   }
-
-  let cur = t
-  while (cur != s) {
-    res.push(cur)
-    cur = pre[cur]
-  }
-  res.push(s)
-  return res.reverse()
+  return false
 }
