@@ -29,7 +29,7 @@ function cycleDetection(edges, n) {
 
   for (let i = 0; i < n; i++) {
     if (!visited[i]) {
-      if (dfs(i)) return true
+      if (dfs(i, i)) return true
     }
   }
   return false
